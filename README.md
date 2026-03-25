@@ -2,21 +2,21 @@
 PromptSAM: long-term consistent urban informal settlements mapping for governance-oriented spatiotemporal analysis 
 
 
-# PromptSAM Domain Adaptation Workflow
+## PromptSAM Domain Adaptation Workflow
 
 This repository provides the workflow for PromptSAM-based domain adaptation on the WuhanUV dataset, including source-domain training, inference, pseudo-label generation, prototype computation, and target-domain adaptation.
 
 
-
-## 1. Source Domain Training (WuhanUV 2022)
+### 1. Source Domain Training (WuhanUV 2022)
 
 **Config file:** `./configs/prompterSAM/wuhanUV_512.py`
 
 **Command:**
 ```bash
 python tools/train.py configs/prompterSAM/wuhanUV_512.py
+```
 
-## 2. Source Domain Inference (2022) with Source Model
+### 2. Source Domain Inference (2022) with Source Model
 
 **Config file:** `./configs/prompterSAM/wuhanUV_512-2022pred.py`
 
@@ -26,9 +26,9 @@ python demo/image_demo.py data/wuhanUV_2022/imgs/test/image \
     configs/prompterSAM/wuhanUV_512-2022pred.py \
     --weights work_dirs/prompterSAM/....pth \
     --out-dir work_dirs/output/...
+```
 
-
-## 3. Target Domain Inference (0519) with Source Model
+### 3. Target Domain Inference (0519) with Source Model
 
 **Config file:** `./configs/prompterSAM/wuhanUV_512-0519pred.py`
 
@@ -38,10 +38,10 @@ python demo/image_demo.py data/wuhanUV_0519/imgs/test/image \
     configs/prompterSAM/wuhanUV_512-0519pred.py \
     --weights work_dirs/prompterSAM/....pth \
     --out-dir work_dirs/output/...
+```
 
 
-
-## 4. Soft Pseudo-Label Generation for Domain Adaptation
+### 4. Soft Pseudo-Label Generation for Domain Adaptation
 
 **Config file:** `./configs/prompterSAM/wuhanUV_512_soft.py`
 
@@ -51,10 +51,10 @@ python demo/image_demo_adapt.py data/wuhanUV_0519/imgs/train/image \
     configs/prompterSAM/wuhanUV_512_soft.py \
     --weights work_dirs/prompterSAM/....pth \
     --out-dir domain_adapt/pseudo/soft_label
+```
 
 
-
-## 5. Prototype Computation for Domain Adaptation
+### 5. Prototype Computation for Domain Adaptation
 
 **Config file:** `./configs/prompterSAM/wuhanUV_512_prototype.py`
 
@@ -64,38 +64,52 @@ python demo/image_demo_adapt.py data/wuhanUV_0519/imgs/train/image \
     configs/prompterSAM/wuhanUV_512_prototype.py \
     --weights work_dirs/prompterSAM/....pth \
     --out-dir domain_adapt/prototype/prototypes
+```
 
 
-
-## Prepare Soft Pseudo-Labels for Domain Adaptation Training
+### Prepare Soft Pseudo-Labels for Domain Adaptation Training
 To enable domain adaptation training, you need to generate a training-ready pseudo-label annotation file (for example, soft_train.json).
-Step 1. Move soft pseudo-label files into the target dataset
-  Move the files in: ./domain_adapt/pseudo/soft_label/vis to: data/wuhanUV_0519/imgs/train/soft
-Step 2. Modify the soft pseudo-label to COCO conversion script
-  Edit the following arguments in ./domain_adapt/whuvsoft2coco.py:
+
+**Step 1. Move soft pseudo-label files into the target dataset**
+
+  Move the files in: `./domain_adapt/pseudo/soft_label/vis` to: `data/wuhanUV_0519/imgs/train/soft`
+  
+**Step 2. Modify the soft pseudo-label to COCO conversion script**
+
+  Edit the following arguments in `./domain_adapt/whuvsoft2coco.py`:
+  ```bash
   parser.add_argument('--gt-dir', default='imgs/train/0215_soft', type=str)
   parser.add_argument('-o', '--out-dir', default='/home/dyl/RSPrompter_UV/data/wuhanUV_0519/annotations_0215', help='output path')
-Step 3. Convert soft pseudo-labels to COCO format
-  Run: python domain_adapt/whuvsoft2coco.py
-Step 4. Update the domain adaptation training config
+
+```
+**Step 3. Convert soft pseudo-labels to COCO format**
+
+  Run: `python domain_adapt/whuvsoft2coco.py`
+
+**Step 4. Update the domain adaptation training config**
+
   Modify the ann_file in target_train_dataloader to use the generated pseudo-label JSON file.
 
 
-## 6. Domain Adaptation Training (Source + Target)
+### 6. Domain Adaptation Training (Source + Target)
 
 **Config file:** `./configs/prompterSAM/wuhanUV_512_adapt.py`
 
 **Command:**
 ```bash
 python tools/train.py /home/dyl/RSPrompter_UV/configs/prompterSAM/wuhanUV_512_adapt.py
+```
+**Preparation**
 
-Preparation
 Before training, make sure the following items are properly configured:
-Step 1. Prototype path: set the correct prototype file path
-Step 2. Pretrained model: set the pretrained model in DeepSpeed format
-Step 3. Pseudo-labels: set the ann_file in target_train_dataloader to the pseudo-label JSON file
 
-## 7. Target Domain Inference (0519) with Target Model after Domain Adaptation
+**Step 1. Prototype path: set the correct prototype file path**
+
+**Step 2. Pretrained model: set the pretrained model in DeepSpeed format**
+
+**Step 3. Pseudo-labels: set the ann_file in target_train_dataloader to the pseudo-label JSON file**
+
+### 7. Target Domain Inference (0519) with Target Model after Domain Adaptation
 
 **Config file:** `./configs/prompterSAM/wuhanUV_512_adapt_0519pred.py`
 
@@ -105,8 +119,11 @@ python demo/image_demo_adapt.py data/wuhanUV_0519/imgs/test/image \
     configs/prompterSAM/wuhanUV_512_adapt.py \
     --weights work_dirs/prompterSAM/....pth \
     --out-dir work_dirs/output/...
+```
 
-## Notes
+### Notes
 Please replace work_dirs/prompterSAM/....pth with the actual checkpoint path.
+
 Please update all dataset paths according to your local environment.
+
 Make sure the configuration files, prototype files, pretrained weights, and pseudo-label annotations are correctly prepared before running domain adaptation training.
