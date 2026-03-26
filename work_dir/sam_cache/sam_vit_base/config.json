@@ -1,0 +1,23 @@
+{
+  "_name_or_path": "facebook/sam-vit-base",
+  "architectures": [
+    "SamModel"
+  ],
+  "initializer_range": 0.02,
+  "mask_decoder_config": {
+    "model_type": ""
+  },
+  "model_type": "sam",
+  "prompt_encoder_config": {
+    "model_type": ""
+  },
+  "torch_dtype": "float32",
+  "transformers_version": "4.38.1",
+  "vision_config": {
+    "dropout": 0.0,
+    "initializer_factor": 1.0,
+    "intermediate_size": 6144,
+    "model_type": "",
+    "projection_dim": 512
+  }
+}
