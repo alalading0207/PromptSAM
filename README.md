@@ -5,9 +5,12 @@ This repository provides the implementation of our paper: "Revealing the Spatiot
 Our research is dedicated to develop a long-term consistent Urban Informal Settlements (UIS) mapping framework, aiming to support governance-oriented spatiotemporal evolution analysis spanning nearly two decades in Wuhan. 
 
 The core idea of model PromptSAM is to achieve single-temporal UIS detection and cross-temporal UIS detection through task-adaptive prompt learning and prototype-constrained domain adaptation 
- 
 
-## PromptSAM Domain Adaptation Workflow
+# Dataset Availability
+
+The “WuhanUV” dataset used in this project is currently not publicly available. As further research on long-term UIS is ongoing, the complete dataset will remain confidential at this stage. We fully acknowledge the importance of open and reproducible research, and we plan to release the dataset in the future.
+
+# PromptSAM Workflow
 
 This repository provides the workflow for PromptSAM-based domain adaptation on the WuhanUV dataset, including source-domain training, inference, pseudo-label generation, prototype computation, and target-domain adaptation.
 
