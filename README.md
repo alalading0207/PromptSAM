@@ -1,6 +1,11 @@
 # PromptSAM
-PromptSAM: long-term consistent urban informal settlements mapping for governance-oriented spatiotemporal analysis 
+This repository provides the implementation of our paper: "Revealing the Spatiotemporal Reconfiguration and Governance Pressure of Urban Informal Settlements: Long-term Consistent Mapping with Segment Anything"
 
+# Introduction
+Our research is dedicated to develop a long-term consistent Urban Informal Settlements (UIS) mapping framework, aiming to support governance-oriented spatiotemporal evolution analysis spanning nearly two decades in Wuhan. 
+
+The core idea of model PromptSAM is to achieve single-temporal UIS detection and cross-temporal UIS detection through task-adaptive prompt learning and prototype-constrained domain adaptation 
+ 
 
 ## PromptSAM Domain Adaptation Workflow
 
