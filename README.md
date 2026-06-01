@@ -1,10 +1,22 @@
-# PromptSAM
-This repository provides the implementation of our paper: "Revealing the Spatiotemporal Reconfiguration and Governance Pressure of Urban Informal Settlements: Long-term Consistent Mapping with Segment Anything"
+# LongConsistMap
+This repository provides the implementation of our paper: "LongConsistMap: A SAM-based Long-term Consistency Mapping Framework for Urban Informal Settlement Mapping and Governance-oriented Analysis"
 
 # Introduction
-Our research is dedicated to develop a long-term consistent Urban Informal Settlements (UIS) mapping framework, aiming to support governance-oriented spatiotemporal evolution analysis spanning nearly two decades in Wuhan. 
+LongConsistMap aims to generate long-term consistent UIS maps from heterogeneous historical imagery and support governance-oriented spatiotemporal analysis.
 
-The core idea of model PromptSAM is to achieve single-temporal UIS detection and cross-temporal UIS detection through task-adaptive prompt learning and prototype-constrained domain adaptation 
+LongConsistMap consists of three sequential components:
+
+1. **Task Adaptation** – establishing transferable UIS prompt priors from annotated reference imagery;
+   
+2. **Temporal Adaptation** – progressively transferring prompt semantics to annotation-scarce historical imagery through prototype-constrained cross-temporal self-training;
+ 
+3. **Temporal Correction** – refining multi-temporal predictions according to UIS evolutionary regularities to generate long-term consistent UIS maps.
+
+This repository implements the first two components of LongConsistMap, namely **Task Adaptation** and **Temporal Adaptation**. The core model is referred to as **PromptSAM**, which serves as the foundation of LongConsistMap. Specifically, PromptSAM reconstructs the prompt encoder of SAM through task-adaptive prompt learning and prototype-constrained temporal adaptation, enabling both single-temporal UIS detection and cross-temporal UIS detection across heterogeneous historical imagery.
+
+The third component, Temporal Correction, together with the subsequent governance-oriented spatiotemporal analysis, operate on the generated long-term consistent UIS maps and are therefore beyond the scope of the current code release.
+
+Overall, PromptSAM provides the transferable prompt priors and cross-temporal adaptation capability that form the foundation of LongConsistMap for long-term consistent UIS mapping.
 
 # Dataset Availability
 
